@@ -10,7 +10,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "MamiPalabra",
   description: "Juego de palabras para Mami - ¡Adivina la palabra del día!",
-  manifest: "/manifest.json",
+  manifest: "/manifest.json", // Next.js should handle this relativity or we might need a meta tag override if it fails
+  icons: {
+    icon: '/icon.svg',
+    apple: '/icon.svg',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -39,9 +43,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-      </head>
       <body className={inter.className}>
         {children}
       </body>
