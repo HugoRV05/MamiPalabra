@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   description: "Juego de palabras para Mami - ¡Adivina la palabra del día!",
   manifest: "/manifest.json", // Next.js should handle this relativity or we might need a meta tag override if it fails
   icons: {
-    icon: '/icon.svg',
-    apple: '/icon.svg',
+    icon: '/logo.png',
+    apple: '/logo.png',
   },
   appleWebApp: {
     capable: true,
