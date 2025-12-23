@@ -5,6 +5,12 @@ import Image from 'next/image';
 import { getStats, getHistory, GameHistoryEntry } from '@/services/stats';
 import styles from './ProfilePage.module.css';
 
+const getAssetPath = (path: string) => {
+  const isProd = process.env.NODE_ENV === 'production';
+  const basePath = isProd ? '/MamiPalabra' : '';
+  return `${basePath}${path}`;
+};
+
 // SVG Icons
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -267,7 +273,7 @@ export function ProfilePage() {
         <div className={styles.avatarContainer}>
           <div className={styles.avatar}>
             <Image 
-              src="/mami.jpeg" 
+              src={getAssetPath("/mami.jpeg")}
               alt="Foto de Mami" 
               width={140} 
               height={140}
