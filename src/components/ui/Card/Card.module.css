@@ -1,0 +1,69 @@
+.card {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-base);
+}
+
+.elevated {
+  box-shadow: var(--shadow-md);
+  border: none;
+}
+
+/* Premium Glassmorphism variant */
+.glass {
+  background: var(--color-glass-light);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-glass-light);
+  box-shadow: 
+    var(--shadow-card),
+    var(--shadow-card-inset);
+}
+
+[data-theme="dark"] .glass {
+  background: var(--color-glass-dark);
+  border: 1px solid var(--color-border-glass-dark);
+  box-shadow: 
+    var(--shadow-card),
+    var(--shadow-card-inset);
+}
+
+/* Glowing variant */
+.glowing {
+  position: relative;
+  overflow: visible;
+}
+
+.glowing::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: var(--gradient-shimmer);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  filter: blur(8px);
+}
+
+.glowing:hover::before {
+  opacity: 1;
+}
+
+.interactive {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    var(--shadow-lg),
+    var(--shadow-glow-primary);
+}
+
+.interactive:active {
+  transform: translateY(-1px);
+}

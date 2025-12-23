@@ -1,10 +1,10 @@
-import { HomePage } from '@/components/pages/home';
+import { PlayPage } from '@/components/pages/play';
 import { MainLayout } from '@/components/layout';
 
 export default function Page() {
   return (
     <MainLayout>
-      <HomePage />
+      <PlayPage />
     </MainLayout>
   );
 }

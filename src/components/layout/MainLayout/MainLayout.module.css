@@ -1,0 +1,10 @@
+.main {
+  min-height: 100dvh;
+  padding-bottom: calc(var(--nav-height) + var(--spacing-md));
+}
+
+.content {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}

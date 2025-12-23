@@ -1,0 +1,368 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  gap: var(--spacing-xl);
+  position: relative;
+}
+
+/* Decorative background elements */
+.container::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -100px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, var(--color-border-glass-light) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  bottom: 100px;
+  left: -80px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--color-border-glass-dark) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: var(--spacing-md) 0 var(--spacing-lg);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.header.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Sections */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section1 {
+  transition-delay: 0.1s;
+}
+
+.section2 {
+  transition-delay: 0.2s;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-secondary);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Length Selector - Premium Redesign */
+.lengthSelector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.lengthButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: var(--spacing-md) var(--spacing-sm);
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.lengthButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-border-glass-subtle), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.lengthButton:hover {
+  border-color: var(--color-primary);
+  background: var(--color-bg-tertiary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.lengthButton:hover::before {
+  opacity: 1;
+}
+
+.lengthButton:active {
+  transform: translateY(0);
+}
+
+.lengthSelected {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  border-color: transparent;
+  box-shadow: 
+    var(--shadow-glow-primary),
+    0 0 0 3px var(--color-border-glass-subtle);
+  transform: translateY(-2px);
+}
+
+.lengthSelected:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 24px rgba(106, 170, 100, 0.45),
+    0 0 0 3px var(--color-border-glass-strong);
+}
+
+.lengthNumber {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.lengthSelected .lengthNumber {
+  color: white;
+  text-shadow: 0 1px 2px var(--color-overlay-light);
+}
+
+.lengthLabel {
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.lengthSelected .lengthLabel {
+  color: var(--color-glass-light-strong);
+}
+
+/* Dictionary Grid - Premium Redesign */
+.dictionaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.dictionaryCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+
+.dictionaryCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(180deg, var(--color-border-glass-subtle), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.dictionaryCard:hover {
+  border-color: var(--color-primary);
+  background: var(--color-bg-secondary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.dictionaryCard:hover::before {
+  opacity: 1;
+}
+
+.dictionaryCard:active {
+  transform: translateY(-2px);
+}
+
+.dictionarySelected {
+  border-color: var(--color-primary);
+  background: var(--color-bg-secondary);
+  box-shadow: 
+    var(--shadow-glow-primary),
+    inset 0 0 0 1px var(--color-border-glass-subtle);
+}
+
+.dictionarySelected::before {
+  opacity: 1;
+}
+
+.dictionarySelected:hover {
+  box-shadow: 
+    0 8px 28px rgba(106, 170, 100, 0.3),
+    inset 0 0 0 1px var(--color-border-glass-strong);
+}
+
+.dictionaryIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 1;
+}
+
+.dictionaryCard:hover .dictionaryIcon {
+  transform: scale(1.05);
+}
+
+.dictionarySelected .dictionaryIcon {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  color: white;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.dictionaryName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  position: relative;
+  z-index: 1;
+}
+
+.dictionaryCheck {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  border-radius: var(--radius-full);
+  color: white;
+  box-shadow: var(--shadow-glow-primary);
+  animation: pop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 2;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Footer - Premium Button Area */
+.footer {
+  margin-top: auto;
+  padding-top: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out 0.3s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+}
+
+.footer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20%;
+  right: -20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+/* Responsive adjustments */
+@media (min-width: 480px) {
+  .lengthSelector {
+    gap: var(--spacing-md);
+  }
+  
+  .dictionaryGrid {
+    gap: var(--spacing-md);
+  }
+  
+  .lengthButton {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+  
+  .dictionaryCard {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+}
