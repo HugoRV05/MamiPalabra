@@ -9,7 +9,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "/MamiPalabra/logo.png",
       "sizes": "any",
       "type": "image/png",
       "purpose": "any maskable"

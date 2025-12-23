@@ -10,10 +10,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "MamiPalabra",
   description: "Juego de palabras para Mami - ¡Adivina la palabra del día!",
-  manifest: "/manifest.json", // Next.js should handle this relativity or we might need a meta tag override if it fails
+  manifest: "/manifest.json", 
   icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    icon: process.env.NODE_ENV === 'production' ? '/MamiPalabra/logo.png' : '/logo.png',
+    apple: process.env.NODE_ENV === 'production' ? '/MamiPalabra/logo.png' : '/logo.png',
   },
   appleWebApp: {
     capable: true,
