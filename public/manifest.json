@@ -3,7 +3,7 @@
   "short_name": "MamiPalabra",
   "description": "Juego de palabras para Mami - ¡Adivina la palabra del día!",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#6aaa64",
   "orientation": "portrait",

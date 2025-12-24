@@ -6,33 +6,6 @@
   position: relative;
 }
 
-/* Decorative background elements */
-.container::before {
-  content: '';
-  position: absolute;
-  top: -50px;
-  right: -100px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, var(--color-border-glass-light) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.container::after {
-  content: '';
-  position: absolute;
-  bottom: 100px;
-  left: -80px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, var(--color-border-glass-dark) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-
 /* Header */
 .header {
   display: flex;
