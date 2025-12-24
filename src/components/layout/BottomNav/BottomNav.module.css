@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
+  padding-bottom: calc(env(safe-area-inset-bottom) + var(--spacing-lg));
   z-index: var(--z-sticky);
 }
 
@@ -18,7 +18,7 @@
   position: absolute;
   top: 6px;
   left: 0;
-  height: calc(100% - 12px - (env(safe-area-inset-bottom) + 8px));
+  height: calc(100% - 12px - env(safe-area-inset-bottom));
   background: linear-gradient(
     135deg,
     rgba(106, 170, 100, 0.12) 0%,
