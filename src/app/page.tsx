@@ -2,9 +2,5 @@ import { HomePage } from '@/components/pages/home';
 import { MainLayout } from '@/components/layout';
 
 export default function Page() {
-  return (
-    <MainLayout>
-      <HomePage />
-    </MainLayout>
-  );
+  return <HomePage />;
 }

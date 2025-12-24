@@ -40,7 +40,7 @@
   --color-streak-end: #f7c052;
 
   /* Light Theme (Default) */
-  --color-bg-primary: #f7f7f7;
+  --color-bg-primary: #ffffff;
   --color-bg-secondary: #ffffff;
   --color-bg-tertiary: #e5e5e5;
   --color-bg-keyboard: #d4d6da;
@@ -212,7 +212,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
   color: var(--color-text-primary);
-  background: linear-gradient(135deg, var(--color-bg-gradient-start), var(--color-bg-gradient-end));
+  background: var(--color-bg-primary);
   min-height: 100dvh;
   overflow-x: hidden;
 }
