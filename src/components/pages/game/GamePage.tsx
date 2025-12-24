@@ -37,6 +37,12 @@ export function GamePage() {
   const [showHintPopup, setShowHintPopup] = useState<{ type: 'letter' | 'definition'; content: string } | null>(null);
   const [gameStats, setGameStats] = useState<{ currentStreak: number; maxStreak: number } | null>(null);
   const [ctaPhrase, setCtaPhrase] = useState('');
+  const [mounted, setMounted] = useState(false);
+
+  // Trigger mount animation
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Randomize CTA phrase when game ends
   useEffect(() => {
@@ -186,7 +192,7 @@ export function GamePage() {
   return (
     <div className={styles.container}>
       {/* Header */}
-      <header className={styles.header}>
+      <header className={`${styles.header} ${mounted ? styles.headerVisible : ''}`}>
         <Link href="/" className={styles.backButton} aria-label="Volver al inicio">
           <Icon name="back" size={20} />
         </Link>
@@ -230,7 +236,7 @@ export function GamePage() {
       </header>
 
       {/* Game Area */}
-      <div className={styles.gameArea}>
+      <div className={`${styles.gameArea} ${mounted ? styles.gameAreaVisible : ''}`}>
         <LetterGrid
           guesses={guesses}
           currentGuess={currentGuess}
@@ -242,7 +248,7 @@ export function GamePage() {
       </div>
 
       {/* Keyboard */}
-      <div className={styles.keyboardArea}>
+      <div className={`${styles.keyboardArea} ${mounted ? styles.keyboardAreaVisible : ''}`}>
         <Keyboard
           onKeyPress={handleKeyPress}
           letterStates={letterStates}

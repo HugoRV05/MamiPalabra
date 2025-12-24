@@ -14,6 +14,15 @@
   background: var(--color-bg-secondary);
   height: var(--header-height);
   position: relative;
+  /* Entry animation */
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headerVisible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .backButton {
@@ -123,6 +132,15 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  /* Entry animation */
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s ease-out 0.15s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.gameAreaVisible {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .keyboardArea {
@@ -130,6 +148,15 @@
   padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
   background: var(--color-bg-secondary);
   border-top: 1px solid var(--color-border);
+  /* Entry animation */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-out 0.25s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+}
+
+.keyboardAreaVisible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Toast message */
