@@ -20,6 +20,11 @@ const navItems: NavItem[] = [
 
 export function BottomNav() {
   const pathname = usePathname();
+
+  // Hide nav on game page for fullscreen experience
+  if (pathname?.startsWith('/game')) {
+    return null;
+  }
   const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({});
   const [activeIndex, setActiveIndex] = useState(-1);
   const [prevIndex, setPrevIndex] = useState(-1);

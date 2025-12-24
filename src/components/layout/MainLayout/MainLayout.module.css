@@ -3,8 +3,16 @@
   padding-bottom: calc(var(--nav-height) + var(--spacing-md));
 }
 
+.mainFullscreen {
+  min-height: 100dvh;
+}
+
 .content {
   max-width: 500px;
   margin: 0 auto;
   padding: var(--spacing-lg);
+}
+
+.contentFullscreen {
+  height: 100%;
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 import { BottomNav } from '../BottomNav';
 import styles from './MainLayout.module.css';
 
@@ -9,10 +10,13 @@ interface MainLayoutProps {
 }
 
 export function MainLayout({ children }: MainLayoutProps) {
+  const pathname = usePathname();
+  const isGamePage = pathname?.startsWith('/game');
+
   return (
     <>
-      <main className={styles.main}>
-        <div className={styles.content}>
+      <main className={isGamePage ? styles.mainFullscreen : styles.main}>
+        <div className={isGamePage ? styles.contentFullscreen : styles.content}>
           {children}
         </div>
       </main>
