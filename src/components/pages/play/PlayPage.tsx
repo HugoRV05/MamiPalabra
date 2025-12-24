@@ -43,8 +43,15 @@ export function PlayPage() {
   return (
     <div className={styles.container}>
       {/* Header */}
-      <header className={`${styles.header} ${mounted ? styles.visible : ''}`}>
+      <header className={`${styles.header} ${mounted ? styles.headerVisible : ''}`}>
+        <div className={styles.headerIconContainer}>
+          <div className={styles.headerIconWrapper}>
+            <Icon name="gamepad" size={32} className={styles.headerIcon} />
+          </div>
+          <div className={styles.headerGlow} />
+        </div>
         <h1 className={styles.title}>Nueva Partida</h1>
+        <p className={styles.subtitle}>Configura tu reto y empieza a jugar</p>
       </header>
 
       {/* Word Length Selector */}

@@ -197,8 +197,26 @@ export function ProfilePage() {
     setMounted(true);
     
     // Load theme
-    const theme = document.documentElement.getAttribute('data-theme');
-    setIsDarkMode(theme === 'dark');
+    const savedTheme = localStorage.getItem('mami-palabra-theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else {
+      setIsDarkMode(systemDark);
+      // No need to set data-theme here, CSS media query handles it
+    }
+    
+    // Listen for system theme changes if no manual preference is set
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem('mami-palabra-theme')) {
+        setIsDarkMode(e.matches);
+      }
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
     
     // Load real stats
     const dailyStats = getStats('daily');
@@ -237,6 +255,8 @@ export function ProfilePage() {
     
     // Load game history
     setHistory(getHistory());
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   const toggleTheme = () => {
