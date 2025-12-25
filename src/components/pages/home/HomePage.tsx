@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button, Card, Icon } from '@/components/ui';
 import { getCombinedStats, getStats } from '@/services/stats';
+import { hasPlayedToday } from '@/services/dictionary';
 import { getGreeting } from '@/utils';
 import { useIsMounted } from '@/hooks';
 import styles from './HomePage.module.css';
@@ -54,6 +55,7 @@ export function HomePage() {
     winPercentage: 0,
     dailyStreak: 0,
   });
+  const [alreadyPlayedToday, setAlreadyPlayedToday] = useState(false);
 
   useEffect(() => {
     // Load real stats
@@ -67,6 +69,9 @@ export function HomePage() {
       winPercentage: combined.winPercentage,
       dailyStreak: dailyStats.currentStreak,
     });
+
+    // Check if user already played today's word
+    setAlreadyPlayedToday(hasPlayedToday());
   }, []);
 
   return (
@@ -94,10 +99,10 @@ export function HomePage() {
           <p className={styles.dailySubtitle}>
             5 letras • 6 intentos • Racha: {stats.dailyStreak}
           </p>
-          <Link href="/game?mode=daily">
+          <Link href={alreadyPlayedToday ? "/game?mode=unlimited" : "/game?mode=daily"}>
             <Button fullWidth size="lg" className={styles.playButton}>
               <Icon name="play" size={24} />
-              <span>Jugar Ahora</span>
+              <span>{alreadyPlayedToday ? "Modo Ilimitado" : "Jugar Ahora"}</span>
             </Button>
           </Link>
         </Card>

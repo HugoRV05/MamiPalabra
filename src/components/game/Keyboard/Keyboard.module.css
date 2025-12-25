@@ -144,3 +144,36 @@
   width: 22px;
   height: 22px;
 }
+
+/* Tablet breakpoint (iPad 10.2 - 768px+) */
+@media (min-width: 768px) {
+  .keyboard {
+    max-width: 720px;
+    gap: 12px;
+    padding: var(--spacing-lg);
+  }
+
+  .row {
+    gap: 10px;
+  }
+
+  .key {
+    height: var(--key-height-tablet, 68px);
+    min-width: 48px;
+    padding: 0 18px;
+    font-size: 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .keySpecial {
+    min-width: 72px;
+    padding: 0 24px;
+    font-size: 1rem;
+  }
+
+  .keyIcon {
+    width: 30px;
+    height: 30px;
+  }
+}
+

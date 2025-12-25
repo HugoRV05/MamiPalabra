@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { getStats, getHistory, GameHistoryEntry } from '@/services/stats';
+import { getStats, getHistory, GameHistoryEntry, getCombinedDistribution } from '@/services/stats';
 import styles from './ProfilePage.module.css';
 
 const getAssetPath = (path: string) => {
@@ -107,26 +107,7 @@ const StarIcon = () => (
   </svg>
 );
 
-const LightningIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-  </svg>
-);
 
-const DiamondIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2L2 9l10 13L22 9l-10-7zm0 3.15L6.28 9 12 17.3 17.72 9 12 5.15z" />
-  </svg>
-);
-
-const TimerIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-    <circle cx="12" cy="13" r="8" />
-    <path d="M12 9v4l2 2" />
-    <path d="M9 2h6" />
-    <path d="M12 2v2" />
-  </svg>
-);
 
 const HeartIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="#ff6b6b">
@@ -148,17 +129,17 @@ interface ProfileStats {
     gamesPlayed: number;
     gamesWon: number;
     winPercentage: number;
+    distribution: number[];
+    averageAttempts: number;
   };
+  combinedDistribution: number[];
   totalWordsLearned: number;
+  totalWinPercentage: number;
+  totalAverageAttempts: number;
   memberSince: string;
 }
 
-interface Achievement {
-  id: string;
-  name: string;
-  icon: string;
-  unlocked: boolean;
-}
+
 
 export function ProfilePage() {
   const [mounted, setMounted] = useState(false);
@@ -179,19 +160,17 @@ export function ProfilePage() {
       gamesPlayed: 0,
       gamesWon: 0,
       winPercentage: 0,
+      distribution: [0, 0, 0, 0, 0, 0],
+      averageAttempts: 0,
     },
+    combinedDistribution: [0, 0, 0, 0, 0, 0],
     totalWordsLearned: 0,
+    totalWinPercentage: 0,
+    totalAverageAttempts: 0,
     memberSince: 'Diciembre 2024',
   });
 
-  const [achievements] = useState<Achievement[]>([
-    { id: 'first-win', name: 'Primera Victoria', icon: '🏆', unlocked: true },
-    { id: 'streak-3', name: 'Racha de 3', icon: '🔥', unlocked: true },
-    { id: 'streak-7', name: 'Racha de 7', icon: '⚡', unlocked: false },
-    { id: 'perfect', name: 'Perfeccionista', icon: '💎', unlocked: false },
-    { id: 'daily-master', name: 'Maestro Diario', icon: '📅', unlocked: false },
-    { id: 'speed-demon', name: 'Velocista', icon: '⏱️', unlocked: false },
-  ]);
+
 
   useEffect(() => {
     setMounted(true);
@@ -222,12 +201,37 @@ export function ProfilePage() {
     const dailyStats = getStats('daily');
     const unlimitedStats = getStats('unlimited');
     
-    // Calculate average attempts
-    const totalAttempts = dailyStats.guessDistribution.reduce(
+    // Calculate average attempts for daily
+    const dailyTotalAttempts = dailyStats.guessDistribution.reduce(
       (sum, count, index) => sum + (count * (index + 1)), 0
     );
-    const averageAttempts = dailyStats.gamesWon > 0 
-      ? (totalAttempts / dailyStats.gamesWon).toFixed(1)
+    const dailyAverageAttempts = dailyStats.gamesWon > 0 
+      ? Number((dailyTotalAttempts / dailyStats.gamesWon).toFixed(1))
+      : 0;
+    
+    // Calculate average attempts for unlimited
+    const unlimitedTotalAttempts = unlimitedStats.guessDistribution.reduce(
+      (sum, count, index) => sum + (count * (index + 1)), 0
+    );
+    const unlimitedAverageAttempts = unlimitedStats.gamesWon > 0 
+      ? Number((unlimitedTotalAttempts / unlimitedStats.gamesWon).toFixed(1))
+      : 0;
+    
+    // Get combined distribution
+    const combinedDist = getCombinedDistribution();
+    
+    // Calculate total stats
+    const totalGames = dailyStats.gamesPlayed + unlimitedStats.gamesPlayed;
+    const totalWins = dailyStats.gamesWon + unlimitedStats.gamesWon;
+    const totalWinPercentage = totalGames > 0 
+      ? Math.round((totalWins / totalGames) * 100)
+      : 0;
+    
+    const combinedTotalAttempts = combinedDist.reduce(
+      (sum, count, index) => sum + (count * (index + 1)), 0
+    );
+    const totalAverageAttempts = totalWins > 0
+      ? Number((combinedTotalAttempts / totalWins).toFixed(1))
       : 0;
     
     setStats({
@@ -240,7 +244,7 @@ export function ProfilePage() {
         currentStreak: dailyStats.currentStreak,
         maxStreak: dailyStats.maxStreak,
         distribution: dailyStats.guessDistribution,
-        averageAttempts: Number(averageAttempts),
+        averageAttempts: dailyAverageAttempts,
       },
       unlimited: {
         gamesPlayed: unlimitedStats.gamesPlayed,
@@ -248,8 +252,13 @@ export function ProfilePage() {
         winPercentage: unlimitedStats.gamesPlayed > 0
           ? Math.round((unlimitedStats.gamesWon / unlimitedStats.gamesPlayed) * 100)
           : 0,
+        distribution: unlimitedStats.guessDistribution,
+        averageAttempts: unlimitedAverageAttempts,
       },
-      totalWordsLearned: dailyStats.gamesWon + unlimitedStats.gamesWon,
+      combinedDistribution: combinedDist,
+      totalWordsLearned: totalWins,
+      totalWinPercentage,
+      totalAverageAttempts,
       memberSince: 'Diciembre 2024',
     });
     
@@ -266,7 +275,7 @@ export function ProfilePage() {
     localStorage.setItem('mami-palabra-theme', newTheme);
   };
 
-  const distribution = stats.daily.distribution.map((count, index) => ({
+  const distribution = stats.combinedDistribution.map((count, index) => ({
     attempts: index + 1,
     count,
   }));
@@ -317,11 +326,11 @@ export function ProfilePage() {
           <div className={styles.quickStatLabel}>Palabras</div>
         </div>
         <div className={styles.quickStatItem}>
-          <div className={styles.quickStatValue}>{stats.daily.winPercentage}%</div>
+          <div className={styles.quickStatValue}>{stats.totalWinPercentage}%</div>
           <div className={styles.quickStatLabel}>Victorias</div>
         </div>
         <div className={styles.quickStatItem}>
-          <div className={styles.quickStatValue}>{stats.daily.averageAttempts || '-'}</div>
+          <div className={styles.quickStatValue}>{stats.totalAverageAttempts || '-'}</div>
           <div className={styles.quickStatLabel}>Promedio</div>
         </div>
       </div>
@@ -373,7 +382,7 @@ export function ProfilePage() {
           <div className={styles.sectionIcon}>
             <BarChartIcon />
           </div>
-          <h2 className={styles.sectionTitle}>Distribución de Intentos</h2>
+          <h2 className={styles.sectionTitle}>Distribución de Intentos (Total)</h2>
         </div>
         <div className={styles.glassCard}>
           <div className={styles.distribution}>
@@ -413,34 +422,22 @@ export function ProfilePage() {
           </div>
           <div className={styles.statCard}>
             <div className={styles.statCardIcon}>
-              <ClockIcon />
+              <TargetIcon />
             </div>
             <div className={styles.statCardValue}>{stats.unlimited.gamesPlayed}</div>
             <div className={styles.statCardLabel}>Partidas</div>
           </div>
+          <div className={styles.statCard}>
+            <div className={styles.statCardIcon}>
+              <BarChartIcon />
+            </div>
+            <div className={styles.statCardValue}>{stats.unlimited.averageAttempts || '-'}</div>
+            <div className={styles.statCardLabel}>Promedio</div>
+          </div>
         </div>
       </section>
 
-      {/* Achievements */}
-      <section className={`${styles.section} ${mounted ? styles.sectionVisible : ''}`} style={{ '--animation-delay': '0.5s' } as React.CSSProperties}>
-        <div className={styles.sectionHeader}>
-          <div className={styles.sectionIcon}>
-            <TrophyIcon />
-          </div>
-          <h2 className={styles.sectionTitle}>Logros</h2>
-        </div>
-        <div className={styles.achievementsList}>
-          {achievements.map((achievement) => (
-            <div 
-              key={achievement.id} 
-              className={`${styles.achievement} ${!achievement.unlocked ? styles.achievementLocked : ''}`}
-            >
-              <span className={styles.achievementIcon}>{achievement.icon}</span>
-              <span className={styles.achievementName}>{achievement.name}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+
 
       {/* History Section */}
       <section className={`${styles.section} ${mounted ? styles.sectionVisible : ''}`} style={{ '--animation-delay': '0.55s' } as React.CSSProperties}>

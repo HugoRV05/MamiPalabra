@@ -145,6 +145,15 @@
   --nav-height: 64px;
   --header-height: 56px;
 
+  /* ========== TABLET TOKENS (iPad 10.2 - 768px+) ========== */
+  --tile-size-tablet: 80px;
+  --tile-gap-tablet: 10px;
+  --tile-font-size-tablet: 2.75rem;
+  --key-height-tablet: 68px;
+  
+  /* Tablet font size multiplier - all fonts scale up */
+  --font-scale-tablet: 1.15;
+
   /* ========== ANIMATION TOKENS ========== */
   --transition-fast: 100ms ease;
   --transition-base: 200ms ease;
@@ -238,6 +247,13 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tablet: increase base font size for larger text throughout */
+@media (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
 }
 
 body {

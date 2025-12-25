@@ -180,3 +180,30 @@
     transform: scale(1);
   }
 }
+
+/* Tablet breakpoint (iPad 10.2 - 768px+) */
+@media (min-width: 768px) {
+  .nav {
+    min-height: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom));
+    padding-top: var(--spacing-md);
+  }
+
+  .navItem {
+    padding: 10px var(--spacing-xl);
+    gap: 4px;
+  }
+
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .label {
+    font-size: 0.85rem;
+  }
+
+  .indicator {
+    height: 60px;
+  }
+}
+

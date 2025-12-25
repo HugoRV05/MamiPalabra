@@ -240,3 +240,23 @@
     transparent
   );
 }
+
+/* Tablet breakpoint (iPad 10.2 - 768px+) */
+@media (min-width: 768px) {
+  .grid {
+    gap: var(--tile-gap-tablet, 8px);
+    padding: var(--spacing-lg);
+  }
+
+  .row {
+    gap: var(--tile-gap-tablet, 8px);
+  }
+
+  .tile {
+    width: var(--tile-size-tablet, 72px);
+    height: var(--tile-size-tablet, 72px);
+    font-size: var(--tile-font-size-tablet, 2.5rem);
+    border-radius: var(--radius-xl);
+  }
+}
+

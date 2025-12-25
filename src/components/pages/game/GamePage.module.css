@@ -455,3 +455,35 @@
   font-style: italic;
   line-height: var(--line-height-relaxed);
 }
+
+/* Tablet breakpoint (iPad 10.2 - 768px+) */
+@media (min-width: 768px) {
+  .modal {
+    max-width: 500px;
+    padding: var(--spacing-2xl);
+  }
+
+  .modalIcon {
+    width: 96px;
+    height: 96px;
+  }
+
+  .modalTitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .modalWord {
+    font-size: var(--font-size-4xl);
+  }
+
+  .keyboardArea {
+    padding: var(--spacing-lg);
+    padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom));
+  }
+
+  .hintPopup {
+    max-width: 340px;
+    padding: var(--spacing-2xl);
+  }
+}
+

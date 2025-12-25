@@ -713,3 +713,102 @@
     transform: translateY(0);
   }
 }
+
+/* Tablet breakpoint (iPad 10.2 - 768px+) */
+@media (min-width: 768px) {
+  .avatar {
+    width: 160px;
+    height: 160px;
+  }
+
+  .userName {
+    font-size: var(--font-size-3xl);
+  }
+
+  .userTitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .quickStats {
+    padding: var(--spacing-xl);
+    gap: var(--spacing-md);
+  }
+
+  .quickStatValue {
+    font-size: var(--font-size-3xl);
+  }
+
+  .quickStatLabel {
+    font-size: var(--font-size-sm);
+  }
+
+  .sectionIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sectionTitle {
+    font-size: var(--font-size-base);
+  }
+
+  .glassCard {
+    padding: var(--spacing-xl);
+  }
+
+  .streakCard {
+    padding: var(--spacing-xl);
+  }
+
+  .streakIcon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .streakValue {
+    font-size: var(--font-size-4xl);
+  }
+
+  .statsGrid {
+    gap: var(--spacing-lg);
+  }
+
+  .statCard {
+    padding: var(--spacing-xl);
+  }
+
+  .statCardIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .statCardValue {
+    font-size: var(--font-size-3xl);
+  }
+
+  .distributionBar {
+    height: 40px;
+  }
+
+  .distributionFill {
+    min-width: 40px;
+    font-size: var(--font-size-sm);
+  }
+
+  .achievement {
+    padding: var(--spacing-lg) var(--spacing-md);
+    min-height: 120px;
+  }
+
+  .achievementIcon {
+    font-size: 40px;
+  }
+
+  .achievementName {
+    font-size: var(--font-size-xs);
+  }
+
+  .historyModal {
+    max-width: 500px;
+  }
+}
+

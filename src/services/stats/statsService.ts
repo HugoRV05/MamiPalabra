@@ -174,6 +174,20 @@ export function getCombinedStats(): {
 }
 
 /**
+ * Get combined guess distribution from both game modes
+ */
+export function getCombinedDistribution(): number[] {
+  const allStats = loadStats();
+  const combined = [0, 0, 0, 0, 0, 0];
+  
+  for (let i = 0; i < 6; i++) {
+    combined[i] = allStats.daily.guessDistribution[i] + allStats.unlimited.guessDistribution[i];
+  }
+  
+  return combined;
+}
+
+/**
  * Reset all stats (for debugging/testing)
  */
 export function resetStats(): void {
