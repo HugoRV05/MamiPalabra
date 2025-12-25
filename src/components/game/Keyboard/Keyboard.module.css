@@ -75,7 +75,8 @@
 
 /* Special keys (Enter, Backspace) */
 .keySpecial {
-  flex: 2;
+  flex: 1.5;
+  min-width: 51px;
   padding: 0 16px;
   background: linear-gradient(135deg, var(--color-bg-tertiary), var(--color-bg-secondary));
   color: var(--color-text-primary);

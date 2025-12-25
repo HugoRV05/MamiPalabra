@@ -71,6 +71,14 @@ export function GamePage() {
     }));
     setGuesses(emptyGuesses);
     
+    // Reset all game state when mode/dictionary/wordLength changes
+    setCurrentGuess('');
+    setCurrentRow(0);
+    setLetterStates({});
+    setStatus('playing');
+    setHintsRemaining(INITIAL_HINTS);
+    setRevealedLetters([]);
+    
     // Load current stats for display
     const stats = getStats(mode);
     setGameStats({ currentStreak: stats.currentStreak, maxStreak: stats.maxStreak });
