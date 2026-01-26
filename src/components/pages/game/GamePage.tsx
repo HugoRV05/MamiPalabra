@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Keyboard, LetterGrid } from '@/components/game';
 import { Button, Icon } from '@/components/ui';
 import { validateGuess, updateLetterStates, checkWin, revealLetter } from '@/services/game';
-import { getRandomWord, getWordOfTheDay } from '@/services/dictionary';
+import { getRandomWord, getWordOfTheDay, isValidWord } from '@/services/dictionary';
 import { recordGameResult, getStats, addToHistory } from '@/services/stats';
 import { formatDateShort } from '@/utils';
 import { Guess, LetterState, GameMode, GameStatus, DictionaryType, HintsRemaining } from '@/types';
@@ -114,6 +114,13 @@ export function GamePage() {
     if (key === 'ENTER') {
       if (currentGuess.length !== targetWord.length) {
         showToast(MESSAGES.NOT_ENOUGH_LETTERS);
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 600);
+        return;
+      }
+
+      if (!isValidWord(currentGuess)) {
+        showToast(MESSAGES.NOT_IN_WORD_LIST);
         setIsShaking(true);
         setTimeout(() => setIsShaking(false), 600);
         return;

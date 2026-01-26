@@ -5,6 +5,7 @@ import words4 from './words/words-4.json';
 import words5 from './words/words-5.json';
 import words6 from './words/words-6.json';
 import words7 from './words/words-7.json';
+import allWords5 from './words/all-words-5.json';
 
 // Word pools organized by length
 const wordsByLength: Record<number, WordEntry[]> = {
@@ -80,8 +81,15 @@ export function getRandomWord(dictionary: DictionaryType, length: number): WordE
  * Create a set of all valid words for validation
  */
 const allValidWords = new Set<string>();
+
+// Add words from the main pools
 Object.values(wordsByLength).forEach(words => {
   words.forEach(w => allValidWords.add(w.word.toUpperCase()));
+});
+
+// Add curated 5-letter list for extensive validation
+(allWords5 as string[]).forEach(word => {
+  allValidWords.add(word.toUpperCase());
 });
 
 /**
